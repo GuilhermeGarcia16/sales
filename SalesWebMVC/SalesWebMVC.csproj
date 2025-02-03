@@ -14,23 +14,24 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\DepartmentsController.cs" />
+    <Content Include="Controllers\DepartmentsController.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Departments\Create.cshtml" />
-    <None Include="Views\Departments\Delete.cshtml" />
-    <None Include="Views\Departments\Details.cshtml" />
-    <None Include="Views\Departments\Edit.cshtml" />
+    <Content Include="Views\Departments\Create.cshtml" />
+    <Content Include="Views\Departments\Delete.cshtml" />
+    <Content Include="Views\Departments\Details.cshtml" />
+    <Content Include="Views\Departments\Edit.cshtml" />
+    <Content Include="Views\Departments\Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.11">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
   </ItemGroup>
 
 </Project>
