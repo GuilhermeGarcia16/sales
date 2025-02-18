@@ -1,5 +1,6 @@
 ﻿using SalesWebMVC.Data;
 using SalesWebMVC.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace SalesWebMVC.Services
 {
@@ -21,5 +22,17 @@ namespace SalesWebMVC.Services
             _context.Add(obj);
             _context.SaveChanges();
         }
-    }
+
+        public Seller FindBy(int id) 
+        {
+            //Eager Loading => No link "Details", o Department não está associado na exibição, pra isso importamos o Microsoft.EntityFrameworkCore e usamos o Include (abaixo) pra fazer o join no banco de dados
+            return _context.Seller.Include(obj => obj.Department).FirstOrDefault(x => x.Id == id);
+        }
+        public void Remove(int id) 
+        {
+            var obj = _context.Seller.Find(id);
+            _context.Seller.Remove(obj);
+            _context.SaveChanges();
+        }
+    }   
 }

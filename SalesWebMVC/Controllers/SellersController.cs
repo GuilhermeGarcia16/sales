@@ -23,6 +23,8 @@ namespace SalesWebMVC.Controllers
 
         public IActionResult Create()
         {
+            //FORMVIEWMODEL
+            //É UM MODEL COMPOSTO MUITO ÚTIL PARA TELAS QUE PRECISAM DE DADOS DE DIFERENTES ENTIDADES, NO CASO AQUI HÁ UM CAMPO SELECT PARA DEPARTAMENTS
             var departments = _departmentService.FindAll();
             var viewModel = new SellerFormVIewModel() { Departments = departments };
             return View(viewModel);
@@ -37,6 +39,35 @@ namespace SalesWebMVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult Delete(int? id) 
+        { 
+            if (id == null){ return NotFound(); }
 
+            var obj = _sellerService.FindBy(id.Value);
+
+            if (obj == null) { return NotFound(); }
+
+            return View(obj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            _sellerService.Remove(id);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Details(int? id)
+        {
+            if (id == null) { return NotFound(); }
+
+            var obj = _sellerService.FindBy(id.Value);
+
+            if (obj == null) { return NotFound(); }
+
+            return View(obj);
+        }
     }
 }
