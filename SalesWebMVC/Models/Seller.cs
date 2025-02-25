@@ -1,11 +1,20 @@
-﻿namespace SalesWebMVC.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SalesWebMVC.Models
 {
     public class Seller
     {
         public int Id { get; set; }
         public String Name { get; set; }
-        public String  Email { get; set; }
+        [DataType(DataType.EmailAddress)]
+        public String Email { get; set; }
+        [Display(Name = "Base Salary")]
+        [DisplayFormat(DataFormatString = "{0:F2}")]
         public Double BaseSalary { get; set; }
+
+        [Display(Name = "Birth Date")]
+        [DisplayFormat(DataFormatString ="{0:dd/MM/yyyy}")]
+        [DataType (DataType.Date)]
         public DateTime BirthDay { get; set; }
         public Department Department { get; set; }
         public ICollection<SalesRecord> Sales { get; set; } = new List<SalesRecord>();
