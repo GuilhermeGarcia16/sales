@@ -36,6 +36,13 @@ namespace SalesWebMVC.Controllers
         [ValidateAntiForgeryToken]//CRSF
         public IActionResult Create(Seller seller) 
         {
+            //Validação (caso Javascript for desativado no client)
+            if (!ModelState.IsValid)
+            {
+                var departments = _departmentService.FindAll();
+                var viewModel = new SellerFormVIewModel { Seller = seller, Departments = departments };
+                return View(viewModel);
+            }
             //Gravando no banco
             _sellerService.Insert(seller);
             return RedirectToAction(nameof(Index));
@@ -90,7 +97,15 @@ namespace SalesWebMVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Seller seller)
         {
+            //Validação (caso Javascript for desativado no client)
+            if (!ModelState.IsValid){
+                var departments = _departmentService.FindAll();
+                var viewModel = new SellerFormVIewModel { Seller = seller, Departments = departments };
+                return View(viewModel); 
+            }
+         
             if (id != seller.Id) { return RedirectToAction(nameof(Error), new { message = "Id mismatch" }); }
+           
             try
             {
                 _sellerService.Update(seller);
