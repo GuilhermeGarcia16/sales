@@ -98,7 +98,8 @@ namespace SalesWebMVC.Controllers
         public async Task<IActionResult> Edit(int id, Seller seller)
         {
             //Validação (caso Javascript for desativado no client)
-            if (!ModelState.IsValid){
+            if (!ModelState.IsValid)
+            {
                 var departments = await _departmentService.FindAllAsync();
                 var viewModel = new SellerFormVIewModel { Seller = seller, Departments = departments };
                 return View(viewModel); 
@@ -108,7 +109,7 @@ namespace SalesWebMVC.Controllers
            
             try
             {
-               await _sellerService.UpdateAsync(seller);
+                await _sellerService.UpdateAsync(seller);
                 return RedirectToAction(nameof(Index));
             }
             catch (NotFoundException ex)
