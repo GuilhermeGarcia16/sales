@@ -16,6 +16,7 @@ namespace SalesWebMVC.Services
         public async Task<List<SalesRecord>> FindByDateAsync(DateTime? minDate, DateTime? maxDate)
         {
             var result = from obj in _context.SalesRecords select obj; //IQueryable
+
             if(minDate.HasValue)
             {
                 result = result.Where(x => x.Date >= minDate.Value);
@@ -44,10 +45,10 @@ namespace SalesWebMVC.Services
             }
 
             return await result.Include(x => x.Seller)    //Join Seller
-                         .Include(x => x.Seller.Department)  //Join Department
-                         .OrderByDescending(x => x.Date)     //Order By Descending
-                         .GroupBy(x => x.Seller.Department) //Group By Department
-                         .ToListAsync();
+                               .Include(x => x.Seller.Department)  //Join Department
+                               .OrderByDescending(x => x.Date)     //Order By Descending
+                               .GroupBy(x => x.Seller.Department) //Group By Department
+                               .ToListAsync();
         }
     }
 }

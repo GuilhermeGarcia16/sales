@@ -27,7 +27,8 @@ namespace SalesWebMVC.Services
         public async Task<Seller> FindByAsync(int id) 
         {
             //Eager Loading => No link "Details", o Department não está associado na exibição, pra isso importamos o Microsoft.EntityFrameworkCore e usamos o Include (abaixo) pra fazer o join no banco de dados
-            return await _context.Seller.Include(obj => obj.Department).FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Seller.Include(obj => obj.Department)
+                                        .FirstOrDefaultAsync(x => x.Id == id);
         }
         public async Task RemoveAsync(int id) 
         {
@@ -46,10 +47,8 @@ namespace SalesWebMVC.Services
         public async Task UpdateAsync(Seller obj)
         {
             bool hasAny = await _context.Seller.AnyAsync(x => x.Id == obj.Id);
-            if (!hasAny)
-            {
-                throw new NotFoundException("Id not found");
-            }
+            if (!hasAny) { throw new NotFoundException("Id not found"); }
+
             try
             {
                 _context.Update(obj);
